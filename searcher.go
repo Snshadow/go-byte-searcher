@@ -59,7 +59,7 @@ func NewSearcher(path string, isText bool) (ByteSearcher, error) {
 	}
 
 	if !fileStat.Mode().IsRegular() {
-		return newSearcher, fmt.Errorf("the give file is not a regular file")
+		return newSearcher, fmt.Errorf("the given file is not a regular file")
 	}
 
 	newSearcher.fileSize = fileStat.Size()
