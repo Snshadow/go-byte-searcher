@@ -11,7 +11,7 @@ import (
 
 	"golang.org/x/text/encoding"
 
-	enctool "go-byte-searcher/encoding"
+	enctool "github.com/Snshadow/go-byte-searcher/encoding"
 )
 
 type ByteSearcher struct {

@@ -1,4 +1,4 @@
-module go-byte-searcher
+module github.com/Snshadow/go-byte-searcher
 
 go 1.20
 
