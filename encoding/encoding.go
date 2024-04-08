@@ -9,8 +9,8 @@ import (
 	"golang.org/x/text/encoding/unicode"
 )
 
-// get encoder and decoder based on its encoding type, currently supports UTF-8, UTF-16LE, UTF-16BE
-// the returned encoder will not add BOM at the start of the transformed buffer
+// Get encoder and name of the used encoding based on its encoding type, currently supports UTF-8, UTF-8 with BOM, UTF-16LE, UTF-16BE.
+// The returned encoder will not add BOM at the start of the transformed buffer.
 func GetFileEncoder(file *os.File) (encoder *encoding.Encoder, encName string, err error) {
 	buf := make([]byte, 3) // BOM sequence is at maximum 3 bytes for utf-8
 	_, err = file.ReadAt(buf, 0)
@@ -38,7 +38,7 @@ func GetFileEncoder(file *os.File) (encoder *encoding.Encoder, encName string, e
 
     if usedEnc == nil {
         err = fmt.Errorf("could not get encoding type of given file")
-        encName = "None"
+        encName = "Unknown"
         return
     }
 
