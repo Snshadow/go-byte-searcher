@@ -38,6 +38,8 @@ func (r *SearchResult) addResult(offset int) {
 	r.offsets = append(r.offsets, offset)
 }
 
+// NewSearcher opens file descriptor and creates new byte searcher for a file in given path.
+// The file descriptor can be accessed with File field. Need to close file descriptor after use.
 func NewSearcher(path string, isText bool) (ByteSearcher, error) {
 	newSearcher := ByteSearcher{
 		isComplete: &atomic.Bool{},
@@ -106,7 +108,7 @@ func (s *ByteSearcher) Search(query []byte, searchOne bool, runCount ...uint32) 
 				sz += lastRem
 			}
 			for i := 0; i < int(sz); i++ {
-                _, err := f.ReadAt(readBuf, readOffset + int64(i))
+                _, err := f.ReadAt(b, readOffset + int64(i))
                 if err == io.EOF {
                     break
                 } else if err != nil {
@@ -114,7 +116,7 @@ func (s *ByteSearcher) Search(query []byte, searchOne bool, runCount ...uint32) 
                     continue
                 }
 
-                if bytes.Equal(readBuf, query) {
+                if bytes.Equal(b, query) {
                     s.result.addResult(int(readOffset) + i)
                     if searchOne {
                         s.isComplete.Store(true)
