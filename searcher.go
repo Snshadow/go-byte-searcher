@@ -81,6 +81,8 @@ func NewSearcher(path string, isText bool) (ByteSearcher, error) {
 // If searchOne is set to true, searcher will search for one offset then return, it may be used if only one match exists in the file is guaranteed,
 // runCount sets the number of concurrently run search sessions.
 func (s *ByteSearcher) Search(query []byte, searchOne bool, runCount ...uint32) (offsets []int, err error) {
+	s.isComplete.Store(false)
+
 	var concur uint32 = 4 // default to 4 concurrent search
 
 	querySize := len(query)
