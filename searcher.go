@@ -82,6 +82,7 @@ func NewSearcher(path string, isText bool) (ByteSearcher, error) {
 // runCount sets the number of concurrently run search sessions.
 func (s *ByteSearcher) Search(query []byte, searchOne bool, runCount ...uint32) (offsets []int, err error) {
 	s.isComplete.Store(false)
+	s.result.offsets = make([]int, 0)
 
 	var concur uint32 = 4 // default to 4 concurrent search
 
